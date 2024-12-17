@@ -1,6 +1,5 @@
 const express = require("express");
 const ProductModel = require("../models/ProductModel");
-
 const Route = express.Router();
 
 Route.get("/", async (req, res) => {

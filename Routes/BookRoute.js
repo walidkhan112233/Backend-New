@@ -64,6 +64,37 @@ Route.post("/",(req,res) => {
     }
 });
 
+Route.get("/", async (req, res) => {
+    try {
+      let token = req.headers.authorization;
+      // Bearer ausasaasdjlkajsdkljaslkdjalksdjklasjskd;lakiodausdoiau
+  
+      token = token.split(" ")[1];
+      console.log(token);
+  
+      jwt
+        .verify(token, "abcdefgh123456789", async (err,decoded) => {
+            if (err) {
+              throw err;
+            }else{
+                console.log(decoded);
+          const result = await BookModel.find({});
+          res.status(200).json({
+            isSuccefull: true,
+            data: result,
+          });
+            }
+        })
+        
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        isSuccefull: false,
+        error: error.message,
+      });
+    }
+  });
+
 Route.put("/:id" ,  async (req,res) => {
     try{
         const id = req.params.id;
